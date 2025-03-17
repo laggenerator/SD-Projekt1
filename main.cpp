@@ -1,9 +1,15 @@
 #include <stdio.h>
+#include "list.hh"
+
 int main(){
-    printf("Hello world :)");
-    for(int i=0;i<5;i++){
-        printf("%d", i);
-        printf("lubie placki");
-    }
-    return 0;
+  List lista;
+
+  lista.push_back(10);
+  lista.push_back(5);
+  lista.push_back(1);
+  lista.push_front(-2);
+  lista.push_front(-1);
+
+  lista._show();
+  return 0;
 }
