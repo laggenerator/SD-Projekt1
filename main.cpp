@@ -1,22 +1,23 @@
 #include <stdio.h>
 #include "list.hh"
 #include "dynamic_array.hh"
+#include "generator.hh"
 
 int main(){
+  const size_t rozmiar = 21;
+  int min = -50;
+  int max = 250;
+  int danestartowe[rozmiar];
+  
+  generujDane(danestartowe, rozmiar, 2137, min, max);
+
   List lista;
   DynamicArray tablica;
-
-  lista.push_back(10);
-  lista.push_back(5);
-  lista.push_back(1);
-  lista.push_front(-2);
-  lista.push_front(-1);
-
-  tablica.push_back(10);
-  tablica.push_back(5);
-  tablica.push_back(1);
-  tablica.push_front(-2);
-  tablica.push_front(-1);
+  
+  for(size_t i=0;i<rozmiar;i++){
+    lista.push_back(danestartowe[i]);
+    tablica.push_back(danestartowe[i]);
+  }
 
   std::cout << "Na pozycji 3 w tablicy: " << tablica.at_position(3) << "\n";
   // lista.at_position(3);
