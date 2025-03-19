@@ -4,6 +4,8 @@
 #include <cstddef>
 #include <iostream>
 #include <stdexcept>
+#include <cstring>
+#include <cstdlib>
 
 class DynamicArray {
     private:

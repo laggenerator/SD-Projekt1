@@ -5,17 +5,40 @@
 DynamicArray::DynamicArray() : dane(nullptr), rozmiar(0), pojemnosc(0) {}
 
 DynamicArray::~DynamicArray() {
-    delete[] dane;
+    if(dane){
+        free(dane);
+    }
 }
 
+// void DynamicArray::resize(std::size_t nowa_pojemnosc){
+//     int *nowe_dane = new int[nowa_pojemnosc];
+//     for(std::size_t i=0;i<rozmiar;i++){
+//         nowe_dane[i] = dane[i];
+//     }
+//     delete[] dane;
+//     dane = nowe_dane;
+//     pojemnosc = nowa_pojemnosc;
+// }
+
 void DynamicArray::resize(std::size_t nowa_pojemnosc){
-    int *nowe_dane = new int[nowa_pojemnosc];
-    for(std::size_t i=0;i<rozmiar;i++){
-        nowe_dane[i] = dane[i];
+    if(nowa_pojemnosc == 0){
+        free(dane);
+        dane = nullptr;
+        rozmiar = 0;
+        pojemnosc = 0;
+        return;
     }
-    delete[] dane;
+    
+    int *nowe_dane = static_cast<int*>(realloc(dane, nowa_pojemnosc * sizeof(int)));
+    if(!nowe_dane){
+        throw std::bad_alloc();
+    }
+
     dane = nowe_dane;
     pojemnosc = nowa_pojemnosc;
+    if(nowa_pojemnosc > rozmiar){ // Ustawia nowe miejsca na 0, zamiast farmazonów
+        std::memset(dane + rozmiar, 0, (nowa_pojemnosc - rozmiar) * sizeof(int));
+    }
 }
 
 void DynamicArray::push_back(int wartosc){
