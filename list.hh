@@ -5,28 +5,32 @@ struct Node {
   int val;
   Node* next;
   
-  Node(int v) : val(v), next(nullptr) {} // Konstruktor węzła
+  Node(int v, Node* n = nullptr) : val(v), next(n) {} // Konstruktor węzła
 };
 
 // Lista jednokierunkowa
 class List {
 private:
+  size_t size;
   Node* head; // Wskaźnik na początek listy
-
+  Node* tail; // Wskaźnik na koniec listy
+  
 public:
   List();
   ~List(); 
 
   void push_back(int val);
   void push_front(int val);
-  void push_at(unsigned int n, int val);
+  void push_at(const size_t n, int val);
 
   int remove_back();
   int remove_front();
-  int remove_at(unsigned int n);
+  int remove_at(size_t n);
 
-  int find(int val) const;
-  int at_position(unsigned int n) const;
+  Node* find(int val) const; //po prostu zwraca wskaznik na element jesli go znajdzie, inaczej nullptr
+  size_t find_index(int val) const; //zwraca „indeks” elementu jesli go znajdzie, inaczej zwroci size
+  Node* at_position(size_t n) const;
+  size_t get_size() { return size; }
 
   void _show();
 };
