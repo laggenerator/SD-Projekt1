@@ -113,7 +113,7 @@ int DynamicArray::remove_at(unsigned int n){
 
 int DynamicArray::find(int wartosc){
     for(std::size_t i=0;i<rozmiar;i++){
-        if(dane[i] = wartosc) return i;
+        if(dane[i] == wartosc) return i;
     }
     return -1;
 }

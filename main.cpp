@@ -62,10 +62,14 @@ int main(int argc, char* argv[]){
     return 1;
   }
   int test = std::stoi(argv[1]);
-  int (*funkcje[])() = {push_front, push_back, push_at, remove_front, remove_back, remove_at, at_position};
+  if(test < 0 || test > 8){
+    std::cout << "Niewłaściwa wartość argumentu\n";
+    return 1;
+  }
+  int (*funkcje[])() = {push_front, push_back, push_at, remove_front, remove_back, remove_at, at_position, find};
   
   if(test == 0){
-    for(int i=0;i<7;i++){
+    for(int i=0;i<8;i++){
       funkcje[i]();
       std::cout << i << " zrobione pomyślnie!\n";
     }

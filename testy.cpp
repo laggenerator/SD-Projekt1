@@ -225,10 +225,11 @@ int remove_at(){
   return 0;
 }
 
-// Nie wiem co wymyslic do tego
+// Nie wiem co wymyslic do tego -- jednak wymyslilem, bedzie znajdowac to co na srodku ale po wartosci
+// NEURON ACTIVATION
 int find(){
   // Zapis do pliku
-  std::ofstream output("remove_back.csv");
+  std::ofstream output("find.csv");
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -242,7 +243,23 @@ int find(){
   int danestartowe[rozmiar];
   generujDane(danestartowe, rozmiar, 2137, min, max);
   
-  // NIE CHCE MI SIE MYSLEC CZEGO SZUKAC
+  for(size_t i=0;i<rozmiar;i++){
+    lista.push_front(danestartowe[i]);
+    tablica.push_front(danestartowe[i]);
+    int val = lista.at_position(int(i/2))->val;
+    int wartosc = tablica.at_position(int(i/2));
+
+    start = std::chrono::high_resolution_clock::now();
+    lista.find(val);
+    stop = std::chrono::high_resolution_clock::now();
+    czas_lista = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+    
+    start = std::chrono::high_resolution_clock::now();
+    tablica.find(wartosc);
+    stop = std::chrono::high_resolution_clock::now();
+    czas_tablica = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+    output << i << ";" << czas_lista.count()  << ";"  << czas_tablica.count() << "\n";
+  }
 
   output.close();
   return 0;
