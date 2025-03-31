@@ -14,6 +14,7 @@ class DynamicArray {
         std::size_t pojemnosc;
     
         void resize(std::size_t nowa_pojemnosc);
+        void shrink();
     
     public:
         DynamicArray();

@@ -3,19 +3,13 @@ CXXFLAGS = -Wall -Wextra -pedantic -std=c++17
 
 TARGET = egzek
 
-SRCS = main.cpp dynamic_array.cpp list.cpp generator.cpp
-
-HEADERS = dynamic_array.hh list.hh generator.hh
-
-OBJS = $(SRCS:.cpp=.o)
+SRCS = main.cpp dynamic_array.cpp list.cpp generator.cpp testy.cpp
+HEADERS = dynamic_array.hh list.hh generator.hh testy.hh
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
-
-%.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(TARGET): $(SRCS) $(HEADERS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGET)

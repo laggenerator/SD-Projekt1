@@ -20,6 +20,18 @@ DynamicArray::~DynamicArray() {
 //     pojemnosc = nowa_pojemnosc;
 // }
 
+void DynamicArray::shrink(){
+    if(rozmiar < pojemnosc / 2 && pojemnosc > 0){
+        int *nowe_dane = static_cast<int*>(realloc(dane, pojemnosc / 2 * sizeof(int)));
+        if(!nowe_dane){
+            throw std::bad_alloc();
+        }
+
+        dane = nowe_dane;
+        pojemnosc = pojemnosc / 2;
+    }
+}
+
 void DynamicArray::resize(std::size_t nowa_pojemnosc){
     if(nowa_pojemnosc == 0){
         free(dane);
@@ -36,9 +48,9 @@ void DynamicArray::resize(std::size_t nowa_pojemnosc){
 
     dane = nowe_dane;
     pojemnosc = nowa_pojemnosc;
-    if(nowa_pojemnosc > rozmiar){ // Ustawia nowe miejsca na 0, zamiast farmazonów
-        std::memset(dane + rozmiar, 0, (nowa_pojemnosc - rozmiar) * sizeof(int));
-    }
+    // if(nowa_pojemnosc > rozmiar){ // Ustawia nowe miejsca na 0, zamiast farmazonów
+    //     std::memset(dane + rozmiar, 0, (nowa_pojemnosc - rozmiar) * sizeof(int));
+    // }
 }
 
 void DynamicArray::push_back(int wartosc){
@@ -72,8 +84,11 @@ void DynamicArray::push_at(unsigned int n, int wartosc){
 
 int DynamicArray::remove_back(){
     if(rozmiar == 0) throw std::out_of_range("Tablica jest pusta");
-    return dane[rozmiar--];
+    int wartosc = dane[rozmiar--];
+    shrink();
+    return wartosc;
 }
+
 int DynamicArray::remove_front(){
     if(rozmiar == 0) throw std::out_of_range("Tablica jest pusta");
     int wartosc = dane[0];
@@ -81,15 +96,18 @@ int DynamicArray::remove_front(){
         dane[i] = dane[i+1];
     }
     rozmiar--;
+    shrink();
     return wartosc;
 }
+
 int DynamicArray::remove_at(unsigned int n){
     if(n >= rozmiar) throw std::out_of_range("n jest poza zakresem tablicy");
     int wartosc = dane[n];
     for(std::size_t i=n;i<rozmiar - 1;i++){
         dane[i] = dane[i+1];
     }
-    rozmiar++;
+    rozmiar--;
+    shrink();
     return wartosc;
 }
 
