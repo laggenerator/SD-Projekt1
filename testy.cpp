@@ -1,4 +1,5 @@
 #include "testy.hh"
+#include <sstream>
 
 const size_t rozmiar = 50000;
 int min = -10000;
@@ -10,9 +11,11 @@ auto czas_lista = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - st
 auto czas_tablica = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
 // Wiadomo
-int push_front(){
+int push_front(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("push_front.csv");
+  std::ostringstream filename;
+  filename << "push_front" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -24,7 +27,7 @@ int push_front(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
 
   for(size_t i=0;i<rozmiar;i++){
     start = std::chrono::high_resolution_clock::now();
@@ -43,9 +46,11 @@ int push_front(){
 }
 
 // Wiadomo
-int push_back(){
+int push_back(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("push_back.csv");
+  std::ostringstream filename;
+  filename << "push_back" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -57,7 +62,7 @@ int push_back(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
 
   for(size_t i=0;i<rozmiar;i++){
     start = std::chrono::high_resolution_clock::now();
@@ -76,9 +81,11 @@ int push_back(){
 }
 
 // Wstawia wartosc na srodek
-int push_at(){
+int push_at(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("push_at.csv");
+  std::ostringstream filename;
+  filename << "push_at" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -90,7 +97,7 @@ int push_at(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
   for(size_t i=0;i<=2;i++){
     lista.push_front(danestartowe[i]);
     tablica.push_front(danestartowe[i]);
@@ -112,9 +119,11 @@ int push_at(){
 }
 
 // Wiadomo
-int remove_front(){
+int remove_front(uint16_t seed, uint8_t proba){
     // Zapis do pliku
-    std::ofstream output("remove_front.csv");
+    std::ostringstream filename;
+    filename << "remove_front" << static_cast<int>(proba) << ".csv"; 
+    std::ofstream output(filename.str());
     if (!output.is_open()) {
       std::cerr << "Błąd otwierania." << std::endl;
       return 1;
@@ -126,7 +135,7 @@ int remove_front(){
     DynamicArray tablica;
     
     int danestartowe[rozmiar];
-    generujDane(danestartowe, rozmiar, 2137, min, max);
+    generujDane(danestartowe, rozmiar, seed, min, max);
     
     for(size_t i=0;i<rozmiar;i++){
       lista.push_back(danestartowe[i]);
@@ -150,9 +159,11 @@ int remove_front(){
 }
 
 // Wiadomo
-int remove_back(){
+int remove_back(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("remove_back.csv");
+  std::ostringstream filename;
+  filename << "remove_back" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -164,7 +175,7 @@ int remove_back(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
   
   for(size_t i=0;i<rozmiar;i++){
     lista.push_back(danestartowe[i]);
@@ -188,9 +199,11 @@ int remove_back(){
 }
 
 // Usuwa ze srodka
-int remove_at(){
+int remove_at(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("remove_at.csv");
+  std::ostringstream filename;
+  filename << "remove_at" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -202,7 +215,7 @@ int remove_at(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
   
   for(size_t i=0;i<rozmiar;i++){
     lista.push_back(danestartowe[i]);
@@ -227,9 +240,11 @@ int remove_at(){
 
 // Nie wiem co wymyslic do tego -- jednak wymyslilem, bedzie znajdowac to co na srodku ale po wartosci
 // NEURON ACTIVATION
-int find(){
+int find(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("find.csv");
+  std::ostringstream filename;
+  filename << "find" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -241,7 +256,7 @@ int find(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
   
   for(size_t i=0;i<rozmiar;i++){
     lista.push_front(danestartowe[i]);
@@ -266,9 +281,11 @@ int find(){
 }
 
 // Szuka wartosci na srodku
-int at_position(){
+int at_position(uint16_t seed, uint8_t proba){
   // Zapis do pliku
-  std::ofstream output("at_position.csv");
+  std::ostringstream filename;
+  filename << "at_position" << static_cast<int>(proba) << ".csv"; 
+  std::ofstream output(filename.str());
   if (!output.is_open()) {
     std::cerr << "Błąd otwierania." << std::endl;
     return 1;
@@ -280,7 +297,7 @@ int at_position(){
   DynamicArray tablica;
   
   int danestartowe[rozmiar];
-  generujDane(danestartowe, rozmiar, 2137, min, max);
+  generujDane(danestartowe, rozmiar, seed, min, max);
   
   for(size_t i=0;i<rozmiar;i++){
     lista.push_front(danestartowe[i]);

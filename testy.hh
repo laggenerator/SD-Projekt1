@@ -8,15 +8,15 @@
 #include <iostream>
 #include <chrono>
 
-int push_front();
-int push_back();
-int push_at();
+int push_front(uint16_t seed, uint8_t proba);
+int push_back(uint16_t seed, uint8_t proba);
+int push_at(uint16_t seed, uint8_t proba);
 
-int remove_front();
-int remove_back();
-int remove_at();
+int remove_front(uint16_t seed, uint8_t proba);
+int remove_back(uint16_t seed, uint8_t proba);
+int remove_at(uint16_t seed, uint8_t proba);
 
-int find();
-int at_position();
+int find(uint16_t seed, uint8_t proba);
+int at_position(uint16_t seed, uint8_t proba);
 
 #endif
