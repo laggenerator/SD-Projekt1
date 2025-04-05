@@ -2,10 +2,15 @@
 #define LISTA_H
 
 struct Node {
+private:
   int val;
   Node* next;
-  
+
+public:
   Node(int v, Node* n = nullptr) : val(v), next(n) {} // Konstruktor węzła
+  int value() { return val; }
+
+  friend class List;
 };
 
 // Lista jednokierunkowa

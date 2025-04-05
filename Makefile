@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++17
+CXXFLAGS = -Wall -Wextra -pedantic -std=c++17 -O0
 
 TARGET = egzek
 
